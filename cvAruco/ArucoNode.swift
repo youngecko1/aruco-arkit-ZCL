@@ -12,6 +12,7 @@ class ArucoNode : SCNNode {
     var view: UIView!
     var sceneView: ARSCNView!
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    var isPressed:Bool = false
 
     init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView) {
         
@@ -43,6 +44,7 @@ class ArucoNode : SCNNode {
         
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
+    
     
     @objc func buttonTapped(_ sender: Any){
         print("Button tapped")

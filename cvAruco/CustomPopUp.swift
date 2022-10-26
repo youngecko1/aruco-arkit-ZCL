@@ -11,8 +11,15 @@ import UIKit
 class CustomPopUp: UIView {
 
 
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var productID: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var fullCount: UILabel!
+    @IBOutlet weak var lastTakein: UILabel!
+    @IBOutlet weak var lastTakeout: UILabel!
+    @IBOutlet weak var lastUpdate: UILabel!
+    @IBOutlet weak var predTakein: UILabel!
+    @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var remainder: UILabel!
     
     var vc: UIViewController!
     var view: UIView!
@@ -31,7 +38,7 @@ class CustomPopUp: UIView {
         
         print("Frame Height and Width: ", frame.width, ": ", frame.height)
         xibSetup(frame: CGRect(x:0,y:0,width: frame.width, height: frame.height))
-        self.titleLabel.text = "Aruco Id: " + String(arucoId)
+        self.productID.text = "Aruco Id: " + String(arucoId)
         
     }
     
