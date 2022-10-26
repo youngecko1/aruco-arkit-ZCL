@@ -10,26 +10,75 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, ARSessionObserver {
+class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, ARSessionObserver, UISearchResultsUpdating {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var startScanButon: UIButton!
+    @IBOutlet weak var stopScanButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    let searchController = UISearchController()
+    var isScanning = false;
     var mutexlock = false;
-
+    
+    let configuration = ARWorldTrackingConfiguration()
+    
+    var arr = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
         
-        sceneView.showsStatistics = true
-        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+//        sceneView.showsStatistics = true
+//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
 
         sceneView.delegate = self
         sceneView.session.delegate = self
+        sceneView.layer.zPosition = 0
+        
+//        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+//
+//        let boxNode = SCNNode(geometry: box)
+//
+//        sceneView.scene.rootNode.addChildNode(boxNode)
     }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else{
+            return
+        }
+        
+        
+        if(isScanning && arr.contains(text)){
+            let number = Int(text)!
+            if let cube = findCube(arucoId: number) {
+                cube.button.tintColor = .red
+                
+            }
+            else{
+                
+                print("Marker Not Within View")
+            }
+        }
+        else{
+            for node in sceneView.scene.rootNode.childNodes {
+                if node is ArucoNode {
+                    let box = node as! ArucoNode
+                    box.button.tintColor = .systemBlue
+                }
+            }
+        }
+        
+
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
+
         configuration.planeDetection = .horizontal
         configuration.isLightEstimationEnabled = true
         configuration.worldAlignment = .gravity
@@ -52,14 +101,48 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             
             let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
             
+//            print(targTransform)
+            
             if let box = findCube(arucoId: Int(transform.arucoId)) {
-                box.setWorldTransform(targTransform);
+
+                box.setWorldTransform(targTransform)
+//                box.worldOrientation = SCNVector4(0, 0, 0, 0)
+//                print(box.orientation)
                 
-            } else {
+//                print(box.simdOrientation)
+//                print(box.simdWorldOrientation)
+//                print("updating cube")
                 
-                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId))
+                if(!isScanning){
+                    box.removeFromParentNode()
+                }
+            }
+            else {
+                print("Making Cube: ")
+                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView)
                 sceneView.scene.rootNode.addChildNode(arucoCube);
-                arucoCube.setWorldTransform(targTransform);
+                arucoCube.setWorldTransform(targTransform)
+//                arucoCube.rotation = SCNVector4Make(0, 0, 40, 0)
+//                print(arucoCube.orientation)
+//                print(arucoCube.simdOrientation)
+//                print(arucoCube.simdWorldOrientation)
+//                print(arucoCube.position)
+//                print(arucoCube.worldPosition)
+//                print(arucoCube.simdWorldPosition)
+//                print(arucoCube.rotation)
+//                print(arucoCube.simdRotation)
+                
+//                arucoCube.position.x = 0
+//                arucoCube.position.y = 0
+                
+//                let displayCube = DisplayNode(sz: ArucoProperty.ArucoMarkerSize,arucoId: arucoCube.id ,vw: view, scnvw:sceneView)
+//                self.sceneView.scene.rootNode.addChildNode(displayCube)
+//                displayCube.setWorldTransform(targTransform)
+////                displayCube.worldPosition.x = arucoCube.worldPosition.x
+////                displayCube.worldPosition.y = arucoCube.worldPosition.y
+////                displayCube.worldPosition.z = 0
+//                displayCube.rotation = SCNVector4Make(0, 0, 40, 0)
+//                print(displayCube.simdOrientation.angle)
             }
         }
     }
@@ -76,9 +159,39 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         return nil
     }
     
+    
+    @IBAction func startScan(_ sender: Any) {
+        sceneView.session.run(configuration, options: [ARSession.RunOptions.resetTracking, ARSession.RunOptions.removeExistingAnchors])
+        isScanning = true
+    }
+    
+    
+    @IBAction func stopScan(_ sender: Any) {
+        isScanning = false
+        
+        for node in sceneView.scene.rootNode.childNodes {
+            if node is ArucoNode {
+                node.removeFromParentNode()
+
+            }
+        }
+    }
+    
+    
+    
+    
+    
     // MARK: - ARSessionDelegate
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
+        if(!self.isScanning){
+            self.mutexlock = false;
+            return
+        }
+//        else{
+//            sceneView.session.setWorldOrigin(relativeTransform: frame.camera.transform)
+//        }
         
         if self.mutexlock {
             return;
@@ -102,9 +215,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 
         let cameraMatrix = SCNMatrix4.init(frame.camera.transform);
         
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             self.updateContentNodeCache(targTransforms: transMatrixArray, cameraTransform:cameraMatrix)
-            
+        
             self.mutexlock = false;
         })
     }
@@ -146,4 +259,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
     }
+    
 }
+
+extension String {
+    var isInt: Bool {
+        return Int(self) != nil
+    }
+}
+

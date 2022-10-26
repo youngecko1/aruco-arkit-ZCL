@@ -40,7 +40,7 @@ static cv::Mat rotateRodriques(cv::Mat &rotMat, cv::Vec3d &tvecs) {
 }
 
 static void detect(std::vector<std::vector<cv::Point2f> > &corners, std::vector<int> &ids, CVPixelBufferRef pixelBuffer) {
-    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_5X5_250);
+    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
 
     // grey scale channel at 0
     CVPixelBufferLockBaseAddress(pixelBuffer, 0);

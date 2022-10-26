@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76851436290904550009BBD6 /* CustomPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76851435290904550009BBD6 /* CustomPopUp.swift */; };
+		768514382909049D0009BBD6 /* CustomPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 768514372909049D0009BBD6 /* CustomPopUp.xib */; };
 		CA1A9D912249D1B300EDE121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A9D902249D1B300EDE121 /* AppDelegate.swift */; };
 		CA1A9D932249D1B300EDE121 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1A9D922249D1B300EDE121 /* art.scnassets */; };
 		CA1A9D952249D1B300EDE121 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A9D942249D1B300EDE121 /* ViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76851435290904550009BBD6 /* CustomPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUp.swift; sourceTree = "<group>"; };
+		768514372909049D0009BBD6 /* CustomPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopUp.xib; sourceTree = "<group>"; };
 		CA1A9D8D2249D1B300EDE121 /* cvAruco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cvAruco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1A9D902249D1B300EDE121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1A9D922249D1B300EDE121 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 				CA1A9DAB2249D65F00EDE121 /* SKWorldTransform.h */,
 				CA1A9DAC2249D65F00EDE121 /* SKWorldTransform.m */,
 				CA1A9DB02249DA0400EDE121 /* ArucoNode.swift */,
+				76851435290904550009BBD6 /* CustomPopUp.swift */,
+				768514372909049D0009BBD6 /* CustomPopUp.xib */,
 				CA1A9DAE2249D77900EDE121 /* ArucoConstants.swift */,
 				CA1A9D902249D1B300EDE121 /* AppDelegate.swift */,
 				CA1A9D942249D1B300EDE121 /* ViewController.swift */,
@@ -165,6 +171,7 @@
 				CA1A9D9D2249D1B300EDE121 /* LaunchScreen.storyboard in Resources */,
 				CA1A9D9A2249D1B300EDE121 /* Assets.xcassets in Resources */,
 				CA1A9D982249D1B300EDE121 /* Main.storyboard in Resources */,
+				768514382909049D0009BBD6 /* CustomPopUp.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +185,7 @@
 				CA1A9D952249D1B300EDE121 /* ViewController.swift in Sources */,
 				CAB6B8AD224AD850005F49FD /* ArucoCV.mm in Sources */,
 				CA1A9DB12249DA0400EDE121 /* ArucoNode.swift in Sources */,
+				76851436290904550009BBD6 /* CustomPopUp.swift in Sources */,
 				CA1A9DAF2249D77900EDE121 /* ArucoConstants.swift in Sources */,
 				CA1A9D912249D1B300EDE121 /* AppDelegate.swift in Sources */,
 				CA1A9DAD2249D65F00EDE121 /* SKWorldTransform.m in Sources */,
@@ -329,18 +337,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 65PMYRRX45;
+				DEVELOPMENT_TEAM = KF75253DQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/cvAruco/opencv",
 				);
 				INFOPLIST_FILE = cvAruco/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dpark.cvAruco;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YoungWonChoi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cvAruco/cvAruco-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -355,18 +363,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 65PMYRRX45;
+				DEVELOPMENT_TEAM = KF75253DQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/cvAruco/opencv",
 				);
 				INFOPLIST_FILE = cvAruco/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dpark.cvAruco;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YoungWonChoi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cvAruco/cvAruco-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
