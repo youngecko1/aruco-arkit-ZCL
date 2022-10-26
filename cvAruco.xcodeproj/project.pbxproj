@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		76851436290904550009BBD6 /* CustomPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76851435290904550009BBD6 /* CustomPopUp.swift */; };
 		768514382909049D0009BBD6 /* CustomPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 768514372909049D0009BBD6 /* CustomPopUp.xib */; };
+		7685143A290908610009BBD6 /* screw.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 76851439290908610009BBD6 /* screw.jpeg */; };
 		CA1A9D912249D1B300EDE121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A9D902249D1B300EDE121 /* AppDelegate.swift */; };
 		CA1A9D932249D1B300EDE121 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1A9D922249D1B300EDE121 /* art.scnassets */; };
 		CA1A9D952249D1B300EDE121 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A9D942249D1B300EDE121 /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		76851435290904550009BBD6 /* CustomPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUp.swift; sourceTree = "<group>"; };
 		768514372909049D0009BBD6 /* CustomPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopUp.xib; sourceTree = "<group>"; };
+		76851439290908610009BBD6 /* screw.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = screw.jpeg; sourceTree = "<group>"; };
 		CA1A9D8D2249D1B300EDE121 /* cvAruco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cvAruco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1A9D902249D1B300EDE121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1A9D922249D1B300EDE121 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				CA1A9D942249D1B300EDE121 /* ViewController.swift */,
 				CA1A9D962249D1B300EDE121 /* Main.storyboard */,
 				CA1A9D992249D1B300EDE121 /* Assets.xcassets */,
+				76851439290908610009BBD6 /* screw.jpeg */,
 				CA1A9D922249D1B300EDE121 /* art.scnassets */,
 				CA1A9D9B2249D1B300EDE121 /* LaunchScreen.storyboard */,
 				CA1A9D9E2249D1B300EDE121 /* Info.plist */,
@@ -169,6 +172,7 @@
 			files = (
 				CA1A9D932249D1B300EDE121 /* art.scnassets in Resources */,
 				CA1A9D9D2249D1B300EDE121 /* LaunchScreen.storyboard in Resources */,
+				7685143A290908610009BBD6 /* screw.jpeg in Resources */,
 				CA1A9D9A2249D1B300EDE121 /* Assets.xcassets in Resources */,
 				CA1A9D982249D1B300EDE121 /* Main.storyboard in Resources */,
 				768514382909049D0009BBD6 /* CustomPopUp.xib in Resources */,

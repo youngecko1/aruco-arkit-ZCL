@@ -106,13 +106,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             if let box = findCube(arucoId: Int(transform.arucoId)) {
 
                 box.setWorldTransform(targTransform)
-//                box.worldOrientation = SCNVector4(0, 0, 0, 0)
-//                print(box.orientation)
-                
-//                print(box.simdOrientation)
-//                print(box.simdWorldOrientation)
-//                print("updating cube")
-                
+
                 if(!isScanning){
                     box.removeFromParentNode()
                 }
@@ -122,27 +116,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView)
                 sceneView.scene.rootNode.addChildNode(arucoCube);
                 arucoCube.setWorldTransform(targTransform)
-//                arucoCube.rotation = SCNVector4Make(0, 0, 40, 0)
-//                print(arucoCube.orientation)
-//                print(arucoCube.simdOrientation)
-//                print(arucoCube.simdWorldOrientation)
-//                print(arucoCube.position)
-//                print(arucoCube.worldPosition)
-//                print(arucoCube.simdWorldPosition)
-//                print(arucoCube.rotation)
-//                print(arucoCube.simdRotation)
-                
-//                arucoCube.position.x = 0
-//                arucoCube.position.y = 0
-                
-//                let displayCube = DisplayNode(sz: ArucoProperty.ArucoMarkerSize,arucoId: arucoCube.id ,vw: view, scnvw:sceneView)
-//                self.sceneView.scene.rootNode.addChildNode(displayCube)
-//                displayCube.setWorldTransform(targTransform)
-////                displayCube.worldPosition.x = arucoCube.worldPosition.x
-////                displayCube.worldPosition.y = arucoCube.worldPosition.y
-////                displayCube.worldPosition.z = 0
-//                displayCube.rotation = SCNVector4Make(0, 0, 40, 0)
-//                print(displayCube.simdOrientation.angle)
+
             }
         }
     }
