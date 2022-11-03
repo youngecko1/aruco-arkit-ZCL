@@ -13,14 +13,18 @@ class ArucoNode : SCNNode {
     var sceneView: ARSCNView!
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     var isPressed:Bool = false
+    
+    var vc: ViewController!
 
-    init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView) {
+    init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView, vc: ViewController) {
         
         self.size = ArucoProperty.ArucoMarkerSize
         self.id = arucoId
         
         self.view = vw
         self.sceneView = scnvw
+        
+        self.vc = vc
         
         super.init()
         
@@ -48,8 +52,8 @@ class ArucoNode : SCNNode {
     
     @objc func buttonTapped(_ sender: Any){
         print("Button tapped")
-        let popUp = CustomPopUp(frame: self.view.frame, arucoId: self.id)
-        popUp.view.layer.cornerRadius = 25
+        let popUp = CustomPopUp(frame: self.view.frame, arucoId: self.id, vc: self.vc)
+        popUp.view.layer.cornerRadius = 5
         self.view.addSubview(popUp)
     }
     

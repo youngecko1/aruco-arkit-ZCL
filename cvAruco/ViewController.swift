@@ -9,6 +9,9 @@
 import UIKit
 import SceneKit
 import ARKit
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, ARSessionObserver, UISearchResultsUpdating {
 
@@ -23,7 +26,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     
     let configuration = ARWorldTrackingConfiguration()
     
+    public var db = Firestore.firestore()
+    
     var arr = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"]
+    
+    var cabArr: [Cabinet] = []
+    
+    
+    func getDB() -> Firestore {
+        return db
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +48,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.delegate = self
         sceneView.session.delegate = self
         sceneView.layer.zPosition = 0
+        fetchDocuments()
         
-//        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-//
-//        let boxNode = SCNNode(geometry: box)
-//
-//        sceneView.scene.rootNode.addChildNode(boxNode)
+        let someURL:URL = URL(string: "www.google.com")!
+        let cabinet = Cabinet(id: 1, count: 1, image: someURL, lti: "sasdfasdf", lto: "asdfasdf", lu: "asdf", location: "asdf", pti: "asdf", prodID: "asdf", prodName: "asdf", use: [0], remain: "Hl")
+        
+        
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -69,8 +82,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 }
             }
         }
-        
-
+    }
+    
+    func fetchDocuments() {
+       
+        db.collection("ZCL").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                    print("---------------------------------------------------------------------------")
+                
+                    
+                }
+            }
+        }
     }
     
     
@@ -110,10 +137,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 if(!isScanning){
                     box.removeFromParentNode()
                 }
+                
+                
             }
             else {
                 print("Making Cube: ")
-                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView)
+                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
                 sceneView.scene.rootNode.addChildNode(arucoCube);
                 arucoCube.setWorldTransform(targTransform)
 
