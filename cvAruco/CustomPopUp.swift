@@ -23,6 +23,8 @@ class CustomPopUp: UIView {
     @IBOutlet weak var predTakein: UILabel!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var remainder: UILabel!
+    @IBOutlet weak var image: UIImageView!
+
     
     var vc: UIViewController!
     var view: UIView!
@@ -50,6 +52,7 @@ class CustomPopUp: UIView {
 //        self.productID.text = "Aruco Id: " + String(arucoId)
 //        getDocument(arucoId: arucoId)
         
+        
         let docRef = vc.db.collection("ZCL").document(String(arucoId))
         
         docRef.getDocument { (document, error) in
@@ -60,6 +63,13 @@ class CustomPopUp: UIView {
                 dateFormatter.timeZone = TimeZone(abbreviation: "KST")
                 dateFormatter.locale = NSLocale.current
                 dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
+                
+                //Image URL converted to image
+                let imageData = document.data()!["img"] as! String
+                let imageURL = URL(string: imageData)
+                self.image.load(url: imageURL!)
+
+//                self.image.load(url: imageURL)
                 
                 //Product ID
                 let pID = document.data()!["prod_id"] as! String
@@ -122,64 +132,24 @@ class CustomPopUp: UIView {
         return view
     }
     
-
-    
-//    func getDocument(arucoId: Int){
-//        let docRef = vc.db.collection("ZCL").document(String(arucoId))
-//        docRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-////                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-////                print("Document data: \(dataDescription)")
-//
-//                //Get Date Formatter to display FIRTimestamp as String
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-//                dateFormatter.locale = NSLocale.current
-//                dateFormatter.dateFormat = "yyy-MM-dd HH:mm"
-//
-//                let fc = document.data()!["full_count"] as! Int
-//
-//                //Last Takein Date
-//                let ltiDate = document.data()!["last_takein"] as! Timestamp
-//                let ltiStringDate = dateFormatter.string(from: ltiDate.dateValue())
-//
-//                //Last Takeout Date
-//                let ltoDate = document.data()!["last_takeout"] as! Timestamp
-//                let ltoStringDate = dateFormatter.string(from: ltoDate.dateValue())
-//
-//                //Last Update Date
-//                let luDate = document.data()!["last_update"] as! Timestamp
-//                let luStringDate = dateFormatter.string(from: luDate.dateValue())
-//
-//                //Last Prediction Takein Date
-//                let ptiDate = document.data()!["pred_takein"] as! Timestamp
-//                let ptiStringDate = dateFormatter.string(from: ptiDate.dateValue())
-//
-//                //Product Name
-//                let prodName = document.data()!["prod_name"] as! String
-//
-//                //Remainder Amount (Percentage)
-//                let remain = document.data()!["remainder"] as! String
-//
-//
-//                self.fullCount.text = "Full Count: " + String(fc)
-//                self.lastTakein.text = "Last Take-in: " + ltiStringDate
-//                self.lastTakeout.text = "Last Take-out: " + ltoStringDate
-//                self.lastUpdate.text = "Last Update: " + luStringDate
-//                self.predTakein.text = "Prediction Take-in: " + ptiStringDate
-//                self.productName.text = "Product Name: " + prodName
-//                self.remainder.text = "Remainder: " + remain
-//
-//
-//            } else {
-//                print("Document does not exist")
-//            }
-//
-//
-//        }
     }
 
     @IBAction func closePopUp(_ sender: Any) {
         self.removeFromSuperview()
+    }
+}
+
+extension UIImageView {
+    func load(url: URL){
+        DispatchQueue.global().async {
+            [weak self] in
+            if let data = try? Data(contentsOf: url){
+                if let image = UIImage(data: data){
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }

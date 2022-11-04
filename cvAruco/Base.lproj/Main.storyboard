@@ -20,7 +20,7 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="800"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyP-GV-Rvt">
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyP-GV-Rvt">
                                 <rect key="frame" x="1072" y="551" width="88" height="49"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
@@ -30,6 +30,9 @@
                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled">
+                                    <backgroundConfiguration key="background" cornerRadius="5">
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                    </backgroundConfiguration>
                                     <attributedString key="attributedTitle">
                                         <fragment content="Start">
                                             <attributes>
@@ -42,16 +45,19 @@
                                     <action selector="startScan:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dOc-2m-AVc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRl-nQ-vZi">
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRl-nQ-vZi">
                                 <rect key="frame" x="1073" y="608" width="86" height="49"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="86" id="uKK-F3-c5V"/>
-                                    <constraint firstAttribute="height" constant="49" id="yUo-B7-0AQ"/>
+                                    <constraint firstAttribute="height" constant="49" id="9f2-9u-HXU"/>
+                                    <constraint firstAttribute="width" constant="86" id="cVK-an-Ayi"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled">
+                                    <backgroundConfiguration key="background" cornerRadius="5">
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                    </backgroundConfiguration>
                                     <attributedString key="attributedTitle">
                                         <fragment content="Stop">
                                             <attributes>
@@ -72,10 +78,10 @@
                             <constraint firstItem="AyP-GV-Rvt" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="477" id="04j-FJ-m1c"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="AyP-GV-Rvt" secondAttribute="trailing" constant="20" id="Dqo-c4-ade"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="gRl-nQ-vZi" secondAttribute="bottom" constant="143" id="PwT-jC-dQ1"/>
+                            <constraint firstItem="gRl-nQ-vZi" firstAttribute="top" secondItem="AyP-GV-Rvt" secondAttribute="bottom" constant="8" symbolic="YES" id="RQz-QT-rsV"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="gRl-nQ-vZi" secondAttribute="trailing" constant="21" id="mdP-5o-1Uy"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="gRl-nQ-vZi" secondAttribute="trailing" constant="21" id="jcD-fa-7NE"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                     </view>

@@ -28,7 +28,7 @@ class ArucoNode : SCNNode {
         
         super.init()
         
-        let planeGeometry = SCNPlane(width: size, height: size)
+        let planeGeometry = SCNPlane(width: size*2, height: size*2)
 
         button.configuration = UIButton.Configuration.filled()
         

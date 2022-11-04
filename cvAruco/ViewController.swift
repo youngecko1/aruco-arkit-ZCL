@@ -141,10 +141,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 
             }
             else {
-                print("Making Cube: ")
-                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
-                sceneView.scene.rootNode.addChildNode(arucoCube);
-                arucoCube.setWorldTransform(targTransform)
+                if(isScanning){
+                    let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
+                    sceneView.scene.rootNode.addChildNode(arucoCube);
+                    arucoCube.setWorldTransform(targTransform)
+                    print("Making Cube: ")
+                }
+
+                            
 
             }
         }
@@ -171,7 +175,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     
     @IBAction func stopScan(_ sender: Any) {
         isScanning = false
-        
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 node.removeFromParentNode()
