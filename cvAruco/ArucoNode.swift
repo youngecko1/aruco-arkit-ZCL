@@ -12,7 +12,6 @@ class ArucoNode : SCNNode {
     var view: UIView!
     var sceneView: ARSCNView!
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-    var isPressed:Bool = false
     
     var vc: ViewController!
 
@@ -51,6 +50,7 @@ class ArucoNode : SCNNode {
     
     
     @objc func buttonTapped(_ sender: Any){
+        self.vc.buttonIsPressed = true
         print("Button tapped")
         let popUp = CustomPopUp(frame: self.view.frame, arucoId: self.id, vc: self.vc)
         popUp.view.layer.cornerRadius = 5

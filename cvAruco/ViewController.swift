@@ -23,6 +23,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     let searchController = UISearchController()
     var isScanning = false;
     var mutexlock = false;
+    var buttonIsPressed = false
     
     let configuration = ARWorldTrackingConfiguration()
     
@@ -48,7 +49,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.delegate = self
         sceneView.session.delegate = self
         sceneView.layer.zPosition = 0
-        fetchDocuments()
         
         let someURL:URL = URL(string: "www.google.com")!
         let cabinet = Cabinet(id: 1, count: 1, image: someURL, lti: "sasdfasdf", lto: "asdfasdf", lu: "asdf", location: "asdf", pti: "asdf", prodID: "asdf", prodName: "asdf", use: [0], remain: "Hl")
@@ -84,22 +84,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         }
     }
     
-    func fetchDocuments() {
-       
-        db.collection("ZCL").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-//                    print("\(document.documentID) => \(document.data())")
-//                    print("---------------------------------------------------------------------------")
-                
-                    
-                }
-            }
-        }
-    }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -130,7 +114,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             
 //            print(targTransform)
             
+            
             if let box = findCube(arucoId: Int(transform.arucoId)) {
+                
+                print("box within view: " + String(transform.arucoId))
 
                 box.setWorldTransform(targTransform)
 
@@ -138,9 +125,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                     box.removeFromParentNode()
                 }
                 
+                if(buttonIsPressed){
+                    box.button.isEnabled = false
+                }
+                else{
+                    box.button.isEnabled = true
+                }
+                
                 
             }
             else {
+                print("exising aruco node not found. Creating one")
                 if(isScanning){
                     let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
                     sceneView.scene.rootNode.addChildNode(arucoCube);
@@ -155,6 +150,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     }
     
     func findCube(arucoId:Int) -> ArucoNode? {
+        print("finding existing cubes")
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 let box = node as! ArucoNode

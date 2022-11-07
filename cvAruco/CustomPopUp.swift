@@ -26,15 +26,11 @@ class CustomPopUp: UIView {
     @IBOutlet weak var image: UIImageView!
 
     
-    var vc: UIViewController!
+    var vc: ViewController!
     var view: UIView!
     var config = UIButton.Configuration.filled()
     var arucoId: Int!
     
-    var db:Firestore!
-
-    
-
     
     required init?(coder: NSCoder){
         super.init(coder: coder)
@@ -136,6 +132,7 @@ class CustomPopUp: UIView {
 
     @IBAction func closePopUp(_ sender: Any) {
         self.removeFromSuperview()
+        self.vc.buttonIsPressed = false
     }
 }
 
