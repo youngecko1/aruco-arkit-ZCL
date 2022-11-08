@@ -29,14 +29,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     
     public var db = Firestore.firestore()
     
-    var arr = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"]
+    var arr: Array<String> = []
     
-    var cabArr: [Cabinet] = []
-    
-    
-    func getDB() -> Firestore {
-        return db
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +44,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.session.delegate = self
         sceneView.layer.zPosition = 0
         
-        let someURL:URL = URL(string: "www.google.com")!
-        let cabinet = Cabinet(id: 1, count: 1, image: someURL, lti: "sasdfasdf", lto: "asdfasdf", lu: "asdf", location: "asdf", pti: "asdf", prodID: "asdf", prodName: "asdf", use: [0], remain: "Hl")
-        
-        
-        
+        db.collection("ZCL").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let aruID = document.data()["aruco_id"] as! Double
+                    print(Int(aruID))
+                    self.arr.append(String(Int(aruID)))
+                }
+            }
+        }
+
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -186,6 +187,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     // MARK: - ARSessionDelegate
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
+        if(buttonIsPressed){
+            return
+        }
         
         if(!self.isScanning){
             self.mutexlock = false;

@@ -51,6 +51,7 @@ class CustomPopUp: UIView {
         
         let docRef = vc.db.collection("ZCL").document(String(arucoId))
         
+        
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 
