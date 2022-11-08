@@ -50,7 +50,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             } else {
                 for document in querySnapshot!.documents {
                     let aruID = document.data()["aruco_id"] as! Double
-                    print(Int(aruID))
                     self.arr.append(String(Int(aruID)))
                 }
             }
@@ -109,6 +108,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     
     func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
         
+        print(sceneView.scene.rootNode.position)
+        
+        
         for transform in targTransforms {
             
             let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
@@ -118,7 +120,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             
             if let box = findCube(arucoId: Int(transform.arucoId)) {
                 
-                print("box within view: " + String(transform.arucoId))
+//                print("box within view: " + String(transform.arucoId))
 
                 box.setWorldTransform(targTransform)
 
@@ -137,10 +139,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             }
             else {
                 print("exising aruco node not found. Creating one")
+                
+//                let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+//                let boxNode = SCNNode(geometry: boxGeometry)
+//                boxNode.position = SCNVector3(0, 0, -1)
+//
+//                sceneView.scene.rootNode.addChildNode(boxNode)
+                
+                
                 if(isScanning){
                     let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
                     sceneView.scene.rootNode.addChildNode(arucoCube);
                     arucoCube.setWorldTransform(targTransform)
+                    
+                    
+//                    boxNode.position = arucoCube.position
+//                    boxNode.position.z = boxNode.position.z + 0.1
+                    print(arucoCube.position)
                     print("Making Cube: ")
                 }
 
@@ -151,7 +166,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     }
     
     func findCube(arucoId:Int) -> ArucoNode? {
-        print("finding existing cubes")
+//        print("finding existing cubes")
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 let box = node as! ArucoNode
