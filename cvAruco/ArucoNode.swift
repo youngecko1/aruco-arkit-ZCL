@@ -11,11 +11,17 @@ class ArucoNode : SCNNode {
     public let id:Int;
     var view: UIView!
     var sceneView: ARSCNView!
-    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+    
+    var popUp: CustomPopUp!
     
     var vc: ViewController!
+    
+    var productID: String!
 
     init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView, vc: ViewController) {
+        
+        
         
         self.size = ArucoProperty.ArucoMarkerSize
         self.id = arucoId
@@ -25,15 +31,21 @@ class ArucoNode : SCNNode {
         
         self.vc = vc
         
+        self.popUp = CustomPopUp(frame: self.view.frame, arucoId: self.id, vc: self.vc)
+        self.popUp.view.layer.cornerRadius = 5
+        
         super.init()
+        
         
         let planeGeometry = SCNPlane(width: size*2, height: size*2)
 
         button.configuration = UIButton.Configuration.filled()
         
-        button.setTitle("ID: " + String(id), for: .normal)
+        button.setTitle(productID, for: .normal)
 
-        button.titleLabel?.font = button.titleLabel?.font.withSize(80)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(100)
+        
+        button.titleLabel?.sizeToFit()
 
         let buttonMaterial = SCNMaterial()
 
@@ -52,8 +64,7 @@ class ArucoNode : SCNNode {
     @objc func buttonTapped(_ sender: Any){
         self.vc.buttonIsPressed = true
         print("Button tapped")
-        let popUp = CustomPopUp(frame: self.view.frame, arucoId: self.id, vc: self.vc)
-        popUp.view.layer.cornerRadius = 5
+        
         self.view.addSubview(popUp)
     }
     

@@ -104,7 +104,7 @@ class CustomPopUp: UIView {
                 self.predTakein.text = "Prediction Take-in: " + ptiStringDate
                 self.productName.text = "Product Name: " + prodName
                 self.remainder.text = "Remainder: " + remain
-                self.productID.text = "Product ID: " + pID
+                self.productID.text = pID
                 
                 
             

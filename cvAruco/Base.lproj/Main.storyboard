@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXN-Pp-mZd">
-    <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXN-Pp-mZd">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,22 +14,18 @@
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="cvAruco" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
-                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
-                                <rect key="frame" x="0.0" y="0.0" width="1180" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyP-GV-Rvt">
-                                <rect key="frame" x="1072" y="551" width="88" height="49"/>
+                                <rect key="frame" x="696.5" y="558" width="103.5" height="64.5"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="k0P-Ik-RH7"/>
-                                    <constraint firstAttribute="height" constant="49" id="o66-Jx-zKp"/>
-                                </constraints>
                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled">
+                                <buttonConfiguration key="configuration" style="filled" buttonSize="large">
                                     <backgroundConfiguration key="background" cornerRadius="5">
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                     </backgroundConfiguration>
@@ -41,20 +37,21 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="startScan:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dOc-2m-AVc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRl-nQ-vZi">
-                                <rect key="frame" x="1073" y="608" width="86" height="49"/>
+                                <rect key="frame" x="698" y="642.5" width="102" height="64.5"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="9f2-9u-HXU"/>
-                                    <constraint firstAttribute="width" constant="86" id="cVK-an-Ayi"/>
-                                </constraints>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled">
+                                <buttonConfiguration key="configuration" style="filled" buttonSize="large">
                                     <backgroundConfiguration key="background" cornerRadius="5">
                                         <color key="backgroundColor" systemColor="systemRedColor"/>
                                     </backgroundConfiguration>
@@ -67,6 +64,11 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="stopScan:" destination="BV1-FR-VrT" eventType="touchUpInside" id="cW6-eu-lSh"/>
                                 </connections>
@@ -75,14 +77,14 @@
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="AyP-GV-Rvt" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="477" id="04j-FJ-m1c"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="AyP-GV-Rvt" secondAttribute="trailing" constant="20" id="Dqo-c4-ade"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="gRl-nQ-vZi" firstAttribute="top" secondItem="AyP-GV-Rvt" secondAttribute="bottom" constant="8" symbolic="YES" id="RQz-QT-rsV"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="gRl-nQ-vZi" secondAttribute="trailing" constant="21" id="jcD-fa-7NE"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leading" id="4ty-v3-Dcg"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="gRl-nQ-vZi" secondAttribute="trailing" constant="20" id="6aF-u7-cbP"/>
+                            <constraint firstItem="gRl-nQ-vZi" firstAttribute="top" secondItem="AyP-GV-Rvt" secondAttribute="bottom" constant="20" id="7q3-a4-Dbv"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="AyP-GV-Rvt" secondAttribute="trailing" constant="20" id="A0U-xp-uYK"/>
+                            <constraint firstAttribute="trailing" secondItem="BrB-h1-WRS" secondAttribute="trailing" id="CKF-Hg-8uj"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="ZiP-EF-Dg3"/>
+                            <constraint firstItem="AyP-GV-Rvt" firstAttribute="centerY" secondItem="U0K-SW-4ec" secondAttribute="centerY" id="ifR-7W-cHc"/>
+                            <constraint firstAttribute="bottom" secondItem="BrB-h1-WRS" secondAttribute="bottom" id="t9h-lv-5Nq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BAQ-cH-sGk"/>
@@ -101,8 +103,9 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wXN-Pp-mZd" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <size key="freeformSize" width="820" height="1180"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="H9C-aQ-ZqV">
-                        <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
+                        <rect key="frame" x="0.0" y="24" width="820" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

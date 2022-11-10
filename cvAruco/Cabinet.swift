@@ -10,7 +10,6 @@ import Foundation
 
 public class Cabinet {
     
-    open var someString: String!
     public var aruco_id: Int!
     var full_count: Int!
     var img: URL!
@@ -22,7 +21,7 @@ public class Cabinet {
     var product_id: String!
     var prod_name: String!
     var usage: NSArray!
-    var volume: String!
+    var remainder: String!
     
     init (id: Int, count: Int, image: URL, lti: String, lto: String, lu: String, location: String, pti: String, prodID: String, prodName: String, use: NSArray, remain: String){
         self.aruco_id = id
@@ -36,14 +35,7 @@ public class Cabinet {
         self.product_id = prodID
         self.prod_name = prodName
         self.usage = use
-        self.volume = remain
-        self.someString = "String"
-    }
-    
-    public var point:String {
-        get{
-            return someString
-        }
+        self.remainder = remain
     }
     
 }

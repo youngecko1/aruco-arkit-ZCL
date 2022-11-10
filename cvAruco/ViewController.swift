@@ -25,6 +25,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     var mutexlock = false;
     var buttonIsPressed = false
     
+    var productName: String!
     let configuration = ARWorldTrackingConfiguration()
     
     public var db = Firestore.firestore()
@@ -44,17 +45,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.session.delegate = self
         sceneView.layer.zPosition = 0
         
+        
+        //Get List of available items from database for search function
         db.collection("ZCL").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    let aruID = document.data()["aruco_id"] as! Double
-                    self.arr.append(String(Int(aruID)))
+                    let prodID = document.data()["prod_id"] as! String
+                    self.arr.append(prodID)
                 }
             }
         }
-
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -62,10 +65,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             return
         }
         
+//        var searchResults: [String]{
+//            if text.isEmpty {
+//                return arr
+//            }
+//            else{
+//                return arr.filter {$0.contains(text)}
+//            }
+//        }
         
-        if(isScanning && arr.contains(text)){
-            let number = Int(text)!
-            if let cube = findCube(arucoId: number) {
+        
+        if(isScanning && arr.contains(where: {$0.compare(text, options: .caseInsensitive) == .orderedSame})){
+//            let number = Int(text)!
+            if let cube = findProductID(productID: text) {
                 cube.button.tintColor = .red
                 
             }
@@ -107,8 +119,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     }
     
     func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
-        
-        print(sceneView.scene.rootNode.position)
+//        print(arr)
+//        print(sceneView.scene.rootNode.position)
         
         
         for transform in targTransforms {
@@ -155,7 +167,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                     
 //                    boxNode.position = arucoCube.position
 //                    boxNode.position.z = boxNode.position.z + 0.1
-                    print(arucoCube.position)
+//                    print(arucoCube.position)
                     print("Making Cube: ")
                 }
 
@@ -170,7 +182,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 let box = node as! ArucoNode
+                
+        
+                
                 if (arucoId == box.id) {
+                    return box
+                }
+            }
+        }
+        return nil
+    }
+    
+    func findProductID(productID: String) -> ArucoNode? {
+        for node in sceneView.scene.rootNode.childNodes {
+            if node is ArucoNode {
+                let box = node as! ArucoNode
+                print(box.popUp!.productID.text)
+                if(box.popUp.productID.text == productID){
                     return box
                 }
             }
