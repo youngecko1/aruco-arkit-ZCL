@@ -11,7 +11,7 @@ class ArucoNode : SCNNode {
     public let id:Int;
     var view: UIView!
     var sceneView: ARSCNView!
-    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     
     var popUp: CustomPopUp!
     
@@ -19,9 +19,7 @@ class ArucoNode : SCNNode {
     
     var productID: String!
 
-    init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView, vc: ViewController) {
-        
-        
+    init(sz:CGFloat = 0.04, arucoId:Int = 23, vw: UIView, scnvw: ARSCNView, vc: ViewController, arr:Array<Cabinet>) {
         
         self.size = ArucoProperty.ArucoMarkerSize
         self.id = arucoId
@@ -36,16 +34,22 @@ class ArucoNode : SCNNode {
         
         super.init()
         
+        for cabinet in arr {
+            if cabinet.aruco_id == arucoId{
+                self.productID = cabinet.product_id
+            }
+        }
         
-        let planeGeometry = SCNPlane(width: size*2, height: size*2)
+        
+        let planeGeometry = SCNPlane(width: size*3, height: size*3)
 
         button.configuration = UIButton.Configuration.filled()
         
         button.setTitle(productID, for: .normal)
-
-        button.titleLabel?.font = button.titleLabel?.font.withSize(100)
         
-        button.titleLabel?.sizeToFit()
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 100)
+        
+//        print(button.titleLabel?.font)
 
         let buttonMaterial = SCNMaterial()
 

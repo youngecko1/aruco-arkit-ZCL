@@ -12,6 +12,7 @@ import ARKit
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SceneKit.ModelIO
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, ARSessionObserver, UISearchResultsUpdating {
 
@@ -30,7 +31,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     
     public var db = Firestore.firestore()
     
-    var arr: Array<String> = []
+    var arr: Array<Cabinet> = []
+    
     
     
     override func viewDidLoad() {
@@ -45,6 +47,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.session.delegate = self
         sceneView.layer.zPosition = 0
         
+//        guard let url = Bundle.main.url(forResource: "arrow", withExtension: "usdz") else {fatalError()}
+//        let mdlAsset = MDLAsset(url: url)
+//        mdlAsset.loadTextures()
+//        let asset = mdlAsset.object(at: 0)
+//        let assetNode = SCNNode(mdlObject: asset)
+//        
+//        sceneView.scene.rootNode.addChildNode(assetNode)
+        
         
         //Get List of available items from database for search function
         db.collection("ZCL").getDocuments() { (querySnapshot, err) in
@@ -52,8 +62,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
+                    let id = document.data()["aruco_id"] as! Int
+                    let count = document.data()["full_count"] as! Int
+                    let image = document.data()["img"] as! String
+                    let lti = document.data()["last_takein"] as! Timestamp
+                    let lto = document.data()["last_takeout"] as! Timestamp
+                    let lu = document.data()["last_update"] as! Timestamp
+                    let location = document.data()["location"] as! String
+                    let pti = document.data()["pred_takein"] as! Timestamp
                     let prodID = document.data()["prod_id"] as! String
-                    self.arr.append(prodID)
+                    let prodName = document.data()["prod_name"] as! String
+                    let use = document.data()["usage"] as! NSArray
+                    let remain = document.data()["remainder"] as! String
+                    let cabinet = Cabinet(id: id, count: count, image: image, lti: lti, lto: lto, lu: lu, location: location, pti: pti, prodID: prodID, prodName: prodName, use: use, remain: remain)
+                    
+                    self.arr.append(cabinet)
                 }
             }
         }
@@ -65,6 +88,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             return
         }
         
+        var capText = text.uppercased()
+        
+
 //        var searchResults: [String]{
 //            if text.isEmpty {
 //                return arr
@@ -75,22 +101,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 //        }
         
         
-        if(isScanning && arr.contains(where: {$0.compare(text, options: .caseInsensitive) == .orderedSame})){
+        if (isScanning){
+//            for cabinet in arr {
+//                if (cabinet.product_id == text){
+//
+//                }
+//            }
 //            let number = Int(text)!
-            if let cube = findProductID(productID: text) {
+            if let cube = findProductID(productID: capText) {
                 cube.button.tintColor = .red
                 
+                
+//                let arrowGeometry = SCNPyramid(width: 0.2, height: 0.3, length: 0.2)
+//                let arrow = SCNNode(geometry: arrowGeometry)
+//                let position = ImmutablePosition(position: cube.position)
+//                arrow.position = position.getValue()
+//
+//                cube.addChildNode(arrow)
             }
             else{
                 
-                print("Marker Not Within View")
-            }
-        }
-        else{
-            for node in sceneView.scene.rootNode.childNodes {
-                if node is ArucoNode {
-                    let box = node as! ArucoNode
-                    box.button.tintColor = .systemBlue
+                for node in sceneView.scene.rootNode.childNodes {
+                    if node is ArucoNode {
+                        let box = node as! ArucoNode
+                        box.button.tintColor = .systemBlue
+                    }
                 }
             }
         }
@@ -119,38 +154,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     }
     
     func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
-//        print(arr)
-//        print(sceneView.scene.rootNode.position)
-        
         
         for transform in targTransforms {
             
-            let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
-            
-//            print(targTransform)
-            
+            let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform)
             
             if let box = findCube(arucoId: Int(transform.arucoId)) {
-                
-//                print("box within view: " + String(transform.arucoId))
 
                 box.setWorldTransform(targTransform)
 
                 if(!isScanning){
+                    box.button.isEnabled = false
                     box.removeFromParentNode()
                 }
                 
                 if(buttonIsPressed){
                     box.button.isEnabled = false
+                    box.removeFromParentNode()
                 }
                 else{
                     box.button.isEnabled = true
                 }
-                
-                
             }
             else {
                 print("exising aruco node not found. Creating one")
+                
                 
 //                let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
 //                let boxNode = SCNNode(geometry: boxGeometry)
@@ -158,9 +186,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 //
 //                sceneView.scene.rootNode.addChildNode(boxNode)
                 
-                
                 if(isScanning){
-                    let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self)
+                    let arucoCube = ArucoNode(arucoId: Int(transform.arucoId), vw: view, scnvw: sceneView, vc: self, arr: arr)
                     sceneView.scene.rootNode.addChildNode(arucoCube);
                     arucoCube.setWorldTransform(targTransform)
                     
@@ -170,9 +197,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 //                    print(arucoCube.position)
                     print("Making Cube: ")
                 }
-
-                            
-
             }
         }
     }
@@ -182,9 +206,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 let box = node as! ArucoNode
-                
-        
-                
                 if (arucoId == box.id) {
                     return box
                 }
@@ -197,7 +218,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         for node in sceneView.scene.rootNode.childNodes {
             if node is ArucoNode {
                 let box = node as! ArucoNode
-                print(box.popUp!.productID.text)
+//                print(box.popUp!.productID.text)
                 if(box.popUp.productID.text == productID){
                     return box
                 }
@@ -265,7 +286,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 
         let cameraMatrix = SCNMatrix4.init(frame.camera.transform);
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
             self.updateContentNodeCache(targTransforms: transMatrixArray, cameraTransform:cameraMatrix)
         
             self.mutexlock = false;

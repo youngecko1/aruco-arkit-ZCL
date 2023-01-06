@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -13,12 +13,12 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZeroClassLab" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-aN-FhG">
-                                <rect key="frame" x="376.5" y="379" width="427" height="62"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZeroClassLab" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-aN-FhG">
+                                <rect key="frame" x="316.5" y="654.5" width="391" height="57"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="55"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -27,12 +27,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ILb-aN-FhG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="355" id="5Z8-cN-79M"/>
-                            <constraint firstItem="ILb-aN-FhG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="6DO-zM-5Pb"/>
-                            <constraint firstItem="ILb-aN-FhG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="H7L-pF-mE0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ILb-aN-FhG" secondAttribute="bottom" constant="359" id="Pwm-yn-1xs"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ILb-aN-FhG" secondAttribute="trailing" constant="376.5" id="jeP-za-QQ8"/>
-                            <constraint firstItem="ILb-aN-FhG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="376.5" id="srD-FU-hQM"/>
+                            <constraint firstItem="ILb-aN-FhG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Wih-cX-WhN"/>
+                            <constraint firstItem="ILb-aN-FhG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Z5Z-Lv-e9f"/>
                         </constraints>
                     </view>
                 </viewController>
